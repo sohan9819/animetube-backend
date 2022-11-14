@@ -8,6 +8,12 @@ const app = express();
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
+app.get('/videos', (req, res) => {
+  res.send('Here are all the videos');
+});
+app.get('/users', (req, res) => {
+  res.send('Here are all the users');
+});
 
 app.use((err, req, res, next) => {
   const status = err.status || 500;
