@@ -65,7 +65,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(PORT, HOST, () => {
+app.listen(PORT, () => {
   connectToDatabase();
   console.log(
     `Connected to server \nProject is running at http://${HOST}:${PORT}/`
