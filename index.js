@@ -1,5 +1,5 @@
 import express from 'express';
-import mongoose from 'mongoose';
+import mongoose, { connect } from 'mongoose';
 import dotenv from 'dotenv';
 
 import cookieParser from 'cookie-parser';
@@ -17,25 +17,23 @@ const HOST = 'localhost';
 const app = express();
 dotenv.config();
 
-const connect = () => {
+const connectToDatabase = () => {
   mongoose
-    .connect(
-      'mongodb+srv://sohan:sohan@animetube.rit7gr7.mongodb.net/?retryWrites=true&w=majority',
-      { useNewUrlParser: true }
-    )
+    .connect(process.env.MONGO)
     .then(() => {
       console.log('Connected to Database 👍');
     })
     .catch((error) => {
-      // throw error;
       console.log('Database Connection Error 👎', error);
+      connectToDatabase();
     });
-
+  // #################################################################
   // mongoose.connect(process.env.MONGO, (error) => {
   //   error
   //     ? console.log('Database Connection Error 👎', error)
   //     : console.log('Connected to Database 👍');
   // });
+  // #################################################################
 };
 
 app.use(express.json());
@@ -68,7 +66,7 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, HOST, () => {
-  connect();
+  connectToDatabase();
   console.log(
     `Connected to server \nProject is running at http://${HOST}:${PORT}/`
   );
