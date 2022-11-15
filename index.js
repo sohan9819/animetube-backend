@@ -11,11 +11,11 @@ import commentRoutes from './routes/comments.js';
 import videoRoutes from './routes/videos.js';
 import authRoutes from './routes/auth.js';
 
-const PORT = 3000;
-const HOST = 'localhost';
-
 const app = express();
 dotenv.config();
+
+const PORT = process.env.PORT || 3000;
+const HOST = 'localhost';
 
 const connectToDatabase = () => {
   mongoose
