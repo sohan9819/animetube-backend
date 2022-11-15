@@ -18,20 +18,24 @@ const app = express();
 dotenv.config();
 
 const connect = () => {
-  // mongoose
-  //   .connect(process.env.MONGO)
-  //   .then(() => {
-  //     console.log('Connect to DB 👍');
-  //   })
-  //   .catch((error) => {
-  //     throw error;
-  //   });
+  mongoose
+    .connect(
+      'mongodb+srv://sohan:sohan@animetube.rit7gr7.mongodb.net/?retryWrites=true&w=majority',
+      { useNewUrlParser: true }
+    )
+    .then(() => {
+      console.log('Connected to Database 👍');
+    })
+    .catch((error) => {
+      // throw error;
+      console.log('Database Connection Error 👎', error);
+    });
 
-  mongoose.connect(process.env.MONGO, (error) => {
-    error
-      ? console.log('Database Connection Error 👎', error)
-      : console.log('Connected to Database 👍');
-  });
+  // mongoose.connect(process.env.MONGO, (error) => {
+  //   error
+  //     ? console.log('Database Connection Error 👎', error)
+  //     : console.log('Connected to Database 👍');
+  // });
 };
 
 app.use(express.json());
