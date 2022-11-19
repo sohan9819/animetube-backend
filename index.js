@@ -15,7 +15,6 @@ const app = express();
 dotenv.config();
 
 const PORT = process.env.PORT || 3000;
-const HOST = process.env.HOST || 'localhost';
 
 const connectToDatabase = () => {
   mongoose
@@ -36,25 +35,16 @@ const connectToDatabase = () => {
   // #################################################################
 };
 
+// Middlewares
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
-
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
-app.get('/videos', (req, res) => {
-  res.send('Here are all the videos');
-});
-app.get('/users', (req, res) => {
-  res.send('Here are all the users');
-});
-
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/videos', videoRoutes);
 app.use('/api/comments', commentRoutes);
 
+// Error handler
 app.use((err, req, res, next) => {
   const status = err.status || 500;
   const message = err.message || 'Something went wrong';
@@ -65,9 +55,9 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, HOST, () => {
   connectToDatabase();
   console.log(
-    `Connected to server \nProject is running at http://${HOST}:${PORT}/`
+    `Connected to server \nProject is running at http://localhost:${PORT}/`
   );
 });
